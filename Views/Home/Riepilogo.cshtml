@@ -1,0 +1,23 @@
+@model Prenotazione;
+
+@{
+    ViewData["SignUp"] = Model;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Conferma</h1>
+
+    <div class="text-center">
+        @{
+            try
+            {
+                <h4>Riepilogo registrazione:</h4>
+                <p> Nome: @Model.Nome @Model.Cognome <br> Email: @Model.Email <br> Data di nascita: @Model.dataNascita <br> Sesso: @Model.sesso <br> Ruolo: @Model.ruolo</p>
+            }
+            catch
+            {
+
+            }
+        }
+    </div>
+</div>

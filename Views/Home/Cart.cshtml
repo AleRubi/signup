@@ -1,0 +1,29 @@
+@model List<Prodotti>;
+
+@{
+    foreach(var item in Model)
+    {
+        ViewData["SignUp"] += item.Nome + ", " + item.Quantita;
+    }
+    
+}
+
+<div class="text-center">
+    <h1 class="display-4">Carrello</h1>
+
+    <div class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 border border-primary fw-bolder fs-3">Prodotto</div>
+                <div class="col-sm-4 border border-primary fw-bolder fs-3">Quantità</div>
+            </div>
+            @foreach(var item in Model)
+            {
+                <div class="row">
+                    <div class="col-sm-8 border border-primary">@item.Nome</div>
+                    <div class="col-sm-4 border border-primary">@item.Quantita</div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
