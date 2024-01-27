@@ -32,7 +32,7 @@ public class HomeController : Controller
     {
         if (User != null)
         {
-            return Riepilogo(User);
+            return View("Riepilogo", User);
         }
         return View();
     }
@@ -43,20 +43,21 @@ public class HomeController : Controller
         User = p;
         return View(p);
     }
-    public IActionResult Purchase()
+    public IActionResult Purchase(Prodotti p)
     {
+        prodottis.Add(p);
         return View();
     }
+
     public IActionResult Logout()
     {
         User = null;
         return View();
     }
 
-    [HttpPost]
-    public IActionResult Cart(Prodotti p)
+    
+    public IActionResult Cart()
     {
-        prodottis.Add(p);
         return View(prodottis);
     }
 
