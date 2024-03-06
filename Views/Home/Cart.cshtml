@@ -6,15 +6,22 @@
     <div class="text-center">
         <div class="container">
             <div class="row">
-                <div class="col-sm-8 border border-primary fw-bolder fs-3">Prodotto</div>
-                <div class="col-sm-4 border border-primary fw-bolder fs-3">Quantità</div>
+                <div class="col-sm-8 border border-primary fw-bolder fs-3 d-flex align-items-center justify-content-center">Prodotto</div>
+                <div class="col-sm-3 border border-primary fw-bolder fs-3 d-flex align-items-center justify-content-center">Quantità</div>
             </div>
-            @foreach(var item in @Model.Prodottis)
+            @foreach(var item in Model.Prodottis)
             {
-                <div class="row">
-                    <div class="col-sm-8 border border-primary">@item.Nome</div>
-                    <div class="col-sm-4 border border-primary">@item.Quantita</div>
-                </div>
+                if(item.Nome != null && item.Quantita != null){
+                    <div class="row">
+                        <div class="col-sm-8 border border-primary d-flex align-items-center justify-content-center">@item.Nome</div>
+                        <div class="col-sm-3 border border-primary d-flex align-items-center justify-content-center">@item.Quantita</div>
+                        <div class="col-sm-1 d-flex align-items-center justify-content-center">
+                            <button class="btn btn-danger position-relative p-3" onclick="location.href='@Url.Action("Delete", "Home", new { i = item.Id })'">
+                                <img src="~/can.png" alt="Delete" class="img-fluid position-absolute top-50 start-50 translate-middle" style="max-width: 2em; height: auto;" />
+                            </button>
+                        </div>
+                    </div>
+                }
             }
         </div>
     </div>

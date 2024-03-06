@@ -81,6 +81,17 @@ public class HomeController : Controller
         }
         return View(db);
     }
+    public IActionResult Delete(int i)
+    {
+        var query = db.Prodottis.Where(c => c.Id.Equals(i)).ToList();
+        foreach (var item in query)
+        {
+            db.Prodottis.Remove(item);
+        }
+        db.SaveChanges();
+        return View("Cart", db);
+    }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
