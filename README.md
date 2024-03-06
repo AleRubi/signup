@@ -6,7 +6,7 @@
  La pagina di Purchase deve esporre un form in cui l'utente inserisce: nome del prodotto da acquistare, quantità di interesse.
  Una volta compilato il form di Purchase l'utente viene rimandato alla pagina Cart, in cui comparirà l'elenco dei prodotti inseriti
 
-##Tema bootstrap
+## Tema bootstrap
 Free bootstrap theme: https://bootswatch.com/
 Possiamo downloadare un esempio di tema e ci scarichera un file.css, da metter dentro ./wwwroot/css/ e poi linko il tutto 
 
