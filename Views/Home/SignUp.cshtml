@@ -12,6 +12,14 @@
     <form class="m-2" method="post" asp-action="Riepilogo">
         <div class="text-center">
             <div class="form-group">
+                <label asp-for="Nome">Il tuo username:</label>
+                <input required asp-for="Username" class="form-control">
+            </div>
+            <div class="form-group">
+                <label asp-for="Nome">La tua password:</label>
+                <input required asp-for="Password" class="form-control" type="password">
+            </div>
+            <div class="form-group">
                 <label asp-for="Nome">Il tuo nome:</label>
                 <input required asp-for="Nome" class="form-control">
             </div>
@@ -62,6 +70,5 @@
             <button type="submit" class="btn btn-primary">Registrati</button>
         </div>
     </form>
+    &copy; Hai già un account? <a asp-area="" asp-controller="Home" asp-action="Login">Loggati qua</a>
 </div>
-
-

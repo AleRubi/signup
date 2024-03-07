@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Sqlite;
 
 public class dbContext : DbContext
 {
-    private readonly DbContextOptions? _options;
+    //private readonly DbContextOptions? _options;
     public dbContext(){}
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)

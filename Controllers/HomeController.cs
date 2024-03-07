@@ -25,7 +25,7 @@ public class HomeController : Controller
 
     public IActionResult Privacy()
     {
-        if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUtente"))){
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username"))){
             return View("SignUp");
         }
         return View();
@@ -34,30 +34,45 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult SignUp()
     {
-        if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUtente")))
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))
         {
             return View();
         }
         return View("Riepilogo", User);
     }
+    public IActionResult Login()
+    {
+        return View();
+    }
+    public IActionResult Riepilogo()
+    {
+        return View();
+    }
 
     [HttpPost]
     public IActionResult Riepilogo(Prenotazione p)
     {
-        /*db.Prenotaziones.Add(p);
-        db.SaveChanges();*/
-        HttpContext.Session.SetString("NomeUtente", p.Nome);
-        HttpContext.Session.SetString("CognomeUtente", p.Cognome);
-        HttpContext.Session.SetString("EmailUtente", p.Email);
+        foreach (var item in db.Prenotaziones)
+        {
+            if (item.Username == p.Username && item.Password == p.Password)
+            {
+                return View("Login");
+            }
+        }
+        db.Prenotaziones.Add(p);
+        db.SaveChanges();
+        HttpContext.Session.SetString("Username", p.Username!);
+        HttpContext.Session.SetString("NomeUtente", p.Nome!);
+        HttpContext.Session.SetString("CognomeUtente", p.Cognome!);
+        HttpContext.Session.SetString("EmailUtente", p.Email!);
         HttpContext.Session.SetString("NascitaUtente", p.dataNascita.ToString());
-        HttpContext.Session.SetString("SessoUtente", p.sesso);
-        HttpContext.Session.SetString("RuoloUtente", p.ruolo);
-        User = p;
+        HttpContext.Session.SetString("SessoUtente", p.sesso!);
+        HttpContext.Session.SetString("RuoloUtente", p.ruolo!);
         return View(p);
     }
     public IActionResult Purchase(Prodotti p)
     {
-        if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUtente"))){
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username"))){
             return View("SignUp");
         }
         prodottid.Add(p);
@@ -68,15 +83,14 @@ public class HomeController : Controller
 
     public IActionResult Logout()
     {
-        HttpContext.Session.SetString("NomeUtente", "");
-        User = null;
-        return View();
+        HttpContext.Session.SetString("Username", "");
+        return View("Login");
     }
 
     
     public IActionResult Cart()
     {
-        if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUtente"))){
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username"))){
             return View("SignUp");
         }
         return View(db);
@@ -90,6 +104,24 @@ public class HomeController : Controller
         }
         db.SaveChanges();
         return View("Cart", db);
+    }
+
+    public IActionResult Verifica(Prenotazione p)
+    {
+        foreach (var item in db.Prenotaziones)
+        {
+            if(item.Username == p.Username && item.Password == p.Password){
+                HttpContext.Session.SetString("Username", p.Username!);
+                HttpContext.Session.SetString("NomeUtente", item.Nome!);
+                HttpContext.Session.SetString("CognomeUtente", item.Cognome!);
+                HttpContext.Session.SetString("EmailUtente", item.Email!);
+                HttpContext.Session.SetString("NascitaUtente", item.dataNascita.ToString());
+                HttpContext.Session.SetString("SessoUtente", item.sesso!);
+                HttpContext.Session.SetString("RuoloUtente", item.ruolo!);
+                break;
+            }
+        }
+        return View("Index", "Home");
     }
 
 

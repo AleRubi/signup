@@ -31,6 +31,12 @@ namespace rubinetti.alessandro._5i.primaWeb.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateOnly>("dataNascita")
                         .HasColumnType("TEXT");
 
