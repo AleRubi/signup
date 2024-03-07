@@ -18,7 +18,7 @@ namespace rubinetti.alessandro._5i.primaWeb.Migrations
 
             modelBuilder.Entity("Prenotazione", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int?>("PrenotazioneId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -46,14 +46,14 @@ namespace rubinetti.alessandro._5i.primaWeb.Migrations
                     b.Property<string>("sesso")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("PrenotazioneId");
 
                     b.ToTable("Prenotaziones");
                 });
 
             modelBuilder.Entity("Prodotti", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int?>("ProdottiId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -63,7 +63,7 @@ namespace rubinetti.alessandro._5i.primaWeb.Migrations
                     b.Property<int?>("Quantita")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProdottiId");
 
                     b.ToTable("Prodottis");
                 });

@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore.Sqlite;
 
 public class dbContext : DbContext
 {
-    //private readonly DbContextOptions? _options;
     public dbContext(){}
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -12,4 +11,5 @@ public class dbContext : DbContext
 
     public DbSet<Prodotti> Prodottis {get; set;}
     public DbSet<Prenotazione> Prenotaziones { get; set; }
+    //public DbSet<Prenotazione_Prodotti> Prenotazione_Prodottis { get; set; }
 }

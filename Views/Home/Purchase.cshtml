@@ -1,41 +1,44 @@
 @model Prodotti;
 
-@{
-    ViewData["Data"] = "";
-}
-<div class="text-center">
-    <h1>Purchase</h1>
-</div>
-<div>
-    <form class="m-2" method="post" asp-action="Purchase">
-        <div class="form-group">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-8 fw-bolder fs-3 d-flex justify-content-center">
-                        <select required asp-for="Nome" class="form-control">
-                            <option value="">Seleziona un prodotto</option>
-                            <option value="Smartphone">Smartphone</option>
-                            <option value="Laptop">Laptop</option>
-                            <option value="Tablet">Tablet</option>
-                            <option value="Televisore">Televisore</option>
-                            <option value="Fotocamera">Fotocamera</option>
-                            <option value="Altoparlante Bluetooth">Altoparlante Bluetooth</option>
-                            <option value="Smartwatch">Smartwatch</option>
-                            <option value="Drone">Drone</option>
-                            <option value="Stampante 3D">Stampante 3D</option>
-                            <option value="Console per videogiochi">Console per videogiochi</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4 fw-bolder fs-3">
-                        <input placeholder="Quantità" required type="number" asp-for="Quantita" min="1">
-                    </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-primary">
+                <div class="card-body text-center">
+                    <h1 class="card-title mb-4">Purchase</h1>
+
+                    <form class="m-2" method="post" asp-action="Purchase">
+                        <div class="form-group">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-8 fw-bolder fs-3 d-flex justify-content-center">
+                                        <select required asp-for="Nome" class="form-control">
+                                            <option value="">Seleziona un prodotto</option>
+                                            <option value="Smartphone">Smartphone</option>
+                                            <option value="Laptop">Laptop</option>
+                                            <option value="Tablet">Tablet</option>
+                                            <option value="Televisore">Televisore</option>
+                                            <option value="Fotocamera">Fotocamera</option>
+                                            <option value="Altoparlante Bluetooth">Altoparlante Bluetooth</option>
+                                            <option value="Smartwatch">Smartwatch</option>
+                                            <option value="Drone">Drone</option>
+                                            <option value="Stampante 3D">Stampante 3D</option>
+                                            <option value="Console per videogiochi">Console per videogiochi</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 fw-bolder fs-3">
+                                        <input placeholder="Quantità" required type="number" asp-for="Quantita" min="1" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Aggiungi al carrello</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <br>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Aggiungi al carrello</button>
-        </div>
-    </form>
+    </div>
 </div>
-

@@ -4,71 +4,78 @@
     ViewData["Title"] = "Prenota";
 }
 
-<div>
-    <div class="text-center">
-        <h1 class="display-4">Prenota</h1>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-primary">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Registrazione</h1>
+
+                    <form method="post" asp-action="Riepilogo">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="Username" class="form-label">Username</label>
+                                <input required asp-for="Username" class="form-control" id="Username">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Password" class="form-label">Password</label>
+                                <input required asp-for="Password" class="form-control" type="password" id="Password">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="Nome" class="form-label">Nome</label>
+                                <input required asp-for="Nome" class="form-control" id="Nome">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Cognome" class="form-label">Cognome</label>
+                                <input required asp-for="Cognome" class="form-control" id="Cognome">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            <input placeholder="example@domain.com" required type="email" asp-for="Email" class="form-control" id="Email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dataNascita" class="form-label">Data di nascita</label>
+                            <input required type="date" asp-for="dataNascita" class="form-control" id="dataNascita">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Sesso</label><br>
+                            <div class="form-check form-check-inline">
+                                <input required type="radio" value="Maschio" asp-for="sesso" class="form-check-input" id="maschio">
+                                <label class="form-check-label" for="maschio">Maschio</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input required type="radio" value="Femmina" asp-for="sesso" class="form-check-input" id="femmina">
+                                <label class="form-check-label" for="femmina">Femmina</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input required type="radio" value="Preferisco non rispondere" asp-for="sesso" class="form-check-input" id="non-rispondere">
+                                <label class="form-check-label" for="non-rispondere">Preferisco non rispondere</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ruolo" class="form-label">Ruolo</label>
+                            <select required asp-for="ruolo" class="form-control" id="ruolo">
+                                <option value="">Seleziona un ruolo</option>
+                                <option value="Insegnante">Insegnante</option>
+                                <option value="Studente">Studente</option>
+                                <option value="Genitore">Genitore</option>
+                            </select>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Registrati</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <form class="m-2" method="post" asp-action="Riepilogo">
-        <div class="text-center">
-            <div class="form-group">
-                <label asp-for="Nome">Il tuo username:</label>
-                <input required asp-for="Username" class="form-control">
-            </div>
-            <div class="form-group">
-                <label asp-for="Nome">La tua password:</label>
-                <input required asp-for="Password" class="form-control" type="password">
-            </div>
-            <div class="form-group">
-                <label asp-for="Nome">Il tuo nome:</label>
-                <input required asp-for="Nome" class="form-control">
-            </div>
-            <div class="form-group">
-                <label asp-for="Cognome">Il tuo cognome:</label>
-                <input required asp-for="Cognome" class="form-control">
-            </div>
-            <div class="form-group">
-                <label asp-for="Email">La tua mail:</label>
-                <input placeholder="example@domain.com" required type="email" asp-for="Email" class="form-control">
-            </div>
-            <div class="form-group">
-                <label asp-for="dataNascita">La tua data di nascita:</label>
-                <input required type="date" asp-for="dataNascita" class="form-control">
-            </div>
-        </div>
-
-        <div class="form-check">
-            <div class="text-center">
-                <label asp-for="sesso">Il tuo sesso:</label>
-            </div>
-            <div>
-                <input required type="radio" value="Maschio" asp-for="sesso" class="form-check-input">
-                <label class="form-check-label">Maschio</label>
-            </div>
-            <div>
-                <input required type="radio" value="Femmina" asp-for="sesso" class="form-check-input">
-                <label class="form-check-label">Femmina</label>
-            </div>
-            <div>
-                <input required type="radio" value="Preferisco non rispondere" asp-for="sesso" class="form-check-input">
-                <label class="form-check-label">Preferisco non rispondere</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="text-center">
-                <label asp-for="sesso">Il tuo ruolo:</label>
-            </div>
-            <select required asp-for="ruolo" class="form-control">
-                <option value="">Seleziona un ruolo</option>
-                <option value="Insegnante">Insegnante</option>
-                <option value="Studente">Studente</option>
-                <option value="Genitore">Genitore</option>
-            </select>
-        </div>
-        <br>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Registrati</button>
-        </div>
-    </form>
-    &copy; Hai già un account? <a asp-area="" asp-controller="Home" asp-action="Login">Loggati qua</a>
+    <div class="text-center mt-3">
+        &reg; Hai già un account? <a asp-area="" asp-controller="Home" asp-action="Login">Loggati qua</a>
+    </div>
 </div>

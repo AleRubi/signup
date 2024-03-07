@@ -1,28 +1,46 @@
 @model Prenotazione
 
-@{
-    ViewData["SignUp"] = Model;
-}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-primary">
+                <div class="card-body text-center">
+                    <h1 class="card-title mb-4">Eccoti, @Context.Session.GetString("Username")!</h1>
 
-<div class="text-center">
-    <h1 class="display-4">Conferma</h1>
+                    <div>
+                        <h4 class="mb-3">Riepilogo profilo:</h4>
 
-    <div class="text-center">
-        @* <p>Name: @Context.Session.GetString("NomeUtente")</p> *@
-        <h4>Riepilogo registrazione:</h4>
-        <p> Username: @Context.Session.GetString("Username") <br> Nome: @Context.Session.GetString("NomeUtente") @Context.Session.GetString("CognomeUtente") <br> Email: @Context.Session.GetString("EmailUtente") <br> Data di nascita: @Context.Session.GetString("NascitaUtente") <br> Sesso: @Context.Session.GetString("SessoUtente") <br> Ruolo: @Context.Session.GetString("RuoloUtente")</p>
-        @{
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <strong>Nome:</strong> @Context.Session.GetString("NomeUtente")
+                            </div>
+                            <div class="col-6">
+                                <strong>Email:</strong> @Context.Session.GetString("EmailUtente")
+                            </div>
+                        </div>
 
-            /*try
-            {
-                <h4>Riepilogo registrazione:</h4>
-                <p> Nome: @Model.Nome @Model.Cognome <br> Email: @Model.Email <br> Data di nascita: @Model.dataNascita <br> Sesso: @Model.sesso <br> Ruolo: @Model.ruolo</p>
-            }
-            catch
-            {
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <strong>Cognome:</strong> @Context.Session.GetString("CognomeUtente")
+                            </div>
+                            <div class="col-6">
+                                <strong>Data di nascita:</strong> @Context.Session.GetString("NascitaUtente")
+                            </div>
+                        </div>
 
-            }*/
-        }
-        <input type="button" value="Logout" onclick="location.href='@Url.Action("Logout", "Home")'"/>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <strong>Sesso:</strong> @Context.Session.GetString("SessoUtente")
+                            </div>
+                            <div class="col-6">
+                                <strong>Ruolo:</strong> @Context.Session.GetString("RuoloUtente")
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

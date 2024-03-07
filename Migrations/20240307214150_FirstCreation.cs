@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace rubinetti.alessandro._5i.primaWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class First : Migration
+    public partial class FirstCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace rubinetti.alessandro._5i.primaWeb.Migrations
                 name: "Prenotaziones",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    PrenotazioneId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Username = table.Column<string>(type: "TEXT", nullable: true),
                     Password = table.Column<string>(type: "TEXT", nullable: true),
@@ -28,21 +28,21 @@ namespace rubinetti.alessandro._5i.primaWeb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prenotaziones", x => x.Id);
+                    table.PrimaryKey("PK_Prenotaziones", x => x.PrenotazioneId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Prodottis",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    ProdottiId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
                     Quantita = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prodottis", x => x.Id);
+                    table.PrimaryKey("PK_Prodottis", x => x.ProdottiId);
                 });
         }
 

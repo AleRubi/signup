@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using rubinetti.alessandro._5i.primaWeb.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace rubinetti.alessandro._5i.primaWeb.Controllers;
 
@@ -9,9 +11,8 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
-    static List<Prodotti> prodottid = new List<Prodotti>();
+    static List<Prodotti> prodottim = new List<Prodotti>();
     private dbContext db = new dbContext();
-    static new Prenotazione? User;
     
     public HomeController(ILogger<HomeController> logger)
     {
@@ -26,7 +27,7 @@ public class HomeController : Controller
     public IActionResult Privacy()
     {
         if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username"))){
-            return View("SignUp");
+            return View("Login");
         }
         return View();
     }
@@ -52,10 +53,13 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Riepilogo(Prenotazione p)
     {
+        string hash = ComputeSHA256Hash(p.Password!);
+        p.Password = hash;
         foreach (var item in db.Prenotaziones)
         {
-            if (item.Username == p.Username && item.Password == p.Password)
+            if (item.Username == p.Username && item.Password == hash)
             {
+                TempData["AlertMessage"] = "User already exists. Please log in.";
                 return View("Login");
             }
         }
@@ -73,17 +77,19 @@ public class HomeController : Controller
     public IActionResult Purchase(Prodotti p)
     {
         if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username"))){
-            return View("SignUp");
+            return View("Login");
         }
-        prodottid.Add(p);
-        db.Prodottis.Add(p);
-        db.SaveChanges();
+        if(p.Nome != null){
+            db.Prodottis.Add(p);
+            db.SaveChanges();
+        }
         return View();
     }
 
     public IActionResult Logout()
     {
         HttpContext.Session.SetString("Username", "");
+        TempData["Message"] = "You have been successfully logged out.";
         return View("Login");
     }
 
@@ -91,13 +97,13 @@ public class HomeController : Controller
     public IActionResult Cart()
     {
         if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username"))){
-            return View("SignUp");
+            return View("Login");
         }
         return View(db);
     }
     public IActionResult Delete(int i)
     {
-        var query = db.Prodottis.Where(c => c.Id.Equals(i)).ToList();
+        var query = db.Prodottis.Where(c => c.ProdottiId.Equals(i)).ToList();
         foreach (var item in query)
         {
             db.Prodottis.Remove(item);
@@ -108,9 +114,12 @@ public class HomeController : Controller
 
     public IActionResult Verifica(Prenotazione p)
     {
+        string hash = ComputeSHA256Hash(p.Password!);
+        bool userFound = false;
         foreach (var item in db.Prenotaziones)
         {
-            if(item.Username == p.Username && item.Password == p.Password){
+            if (item.Username == p.Username && item.Password == hash)
+            {
                 HttpContext.Session.SetString("Username", p.Username!);
                 HttpContext.Session.SetString("NomeUtente", item.Nome!);
                 HttpContext.Session.SetString("CognomeUtente", item.Cognome!);
@@ -118,12 +127,32 @@ public class HomeController : Controller
                 HttpContext.Session.SetString("NascitaUtente", item.dataNascita.ToString());
                 HttpContext.Session.SetString("SessoUtente", item.sesso!);
                 HttpContext.Session.SetString("RuoloUtente", item.ruolo!);
+                userFound = true;
                 break;
             }
         }
-        return View("Index", "Home");
+        if (!userFound)
+        {
+            TempData["AlertMessage"] = "Invalid username or password. Please try again.";
+            return RedirectToAction("Login");
+        }
+        return RedirectToAction("Index");
     }
 
+    private string ComputeSHA256Hash(string input)
+    {
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+            StringBuilder builder = new StringBuilder();
+            foreach (byte b in bytes)
+            {
+                builder.Append(b.ToString("x2"));
+            }
+            return builder.ToString();
+        }
+    }
+    
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
